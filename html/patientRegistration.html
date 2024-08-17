@@ -1,11 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Patient Registration</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <div>
+      <h2
+        class="mt-5 flex items-center justify-center text-3xl font-semibold text-purple-600"
+      >
+        Registration Form
+      </h2>
+      <div class="my-10 w-full flex items-center justify-center">
+        <div class="w-[60%] h-auto bg-purple-50 shadow-md rounded p-3 mb-3">
+          <form id="registrationForm">
+            <!-- Step 1 -->
+            <div class="form-step flex flex-col gap-4">
+              <input
+                type="text"
+                class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                placeholder="Enter your name"
+              />
+              <input
+                type="email"
+                class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                placeholder="Enter your email"
+              />
+              <div class="flex flex-col md:flex-row gap-3">
+                <input
+                  type="password"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  placeholder="Enter your password"
+                />
+                <input
+                  type="password"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  placeholder="Enter your confirm password"
+                />
+              </div>
+              <button
+                class="w-full py-3 font-medium text-white bg-purple-600 hover:bg-purple-500 rounded-lg border-purple-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                type="button"
+                onclick="nextStep()"
+              >
+                Next
+              </button>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="form-step flex flex-col gap-4 hidden">
+              <div class="flex flex-col md:flex-row gap-3">
+                <input
+                  type="date"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  placeholder="Enter your dob"
+                />
+                <input
+                  type="number"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  placeholder="Enter your age"
+                />
+              </div>
+              <div class="flex flex-col md:flex-row gap-3">
+                <div
+                  class="w-full flex gap-3 p-3 bg-white border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                >
+                  <div class="flex items-center justify-center gap-3">
+                    <input
+                      type="radio"
+                      id="male"
+                      name="gender"
+                      class="accent-blue-300 focus:accent-blue-500 w-4 h-4"
+                    />
+                    <label for="male" class="text-lg text-gray-700 font-normal"
+                      >Male</label
+                    >
+                  </div>
+                  <div class="flex items-center justify-center gap-3">
+                    <input
+                      type="radio"
+                      id="female"
+                      name="gender"
+                      class="accent-blue-300 focus:accent-blue-500 w-4 h-4"
+                    />
+                    <label
+                      for="female"
+                      class="text-lg text-gray-700 font-normal"
+                      >Female</label
+                    >
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  placeholder="Enter your phone"
+                />
+              </div>
+              <button
+                class="w-full py-3 font-medium text-white bg-purple-600 hover:bg-purple-500 rounded-lg border-purple-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                type="button"
+                onclick="nextStep()"
+              >
+                Next
+              </button>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="form-step flex flex-col gap-4 hidden">
+              <input
+                type="text"
+                class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                placeholder="Enter your address"
+              />
+              <div class="flex flex-col md:flex-row gap-3">
+                <input
+                  type="text"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  placeholder="Enter your city"
+                />
+                <input
+                  type="text"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  placeholder="Enter your state"
+                />
+              </div>
+              <div class="flex flex-col md:flex-row gap-3">
+                <input
+                  type="text"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  placeholder="Enter your country"
+                />
+                <input
+                  type="text"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  placeholder="Enter your pincode"
+                />
+              </div>
+              <button
+                class="w-full py-3 font-medium text-white bg-purple-600 hover:bg-purple-500 rounded-lg border-purple-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                type="submit"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                  />
+                </svg>
+                <span>Create Account</span>
+              </button>
+            </div>
+          </form>
+          <p class="mt-2 flex gap-1 items-center justify-center">
+            Registered yet?
+            <a
+              href="/login"
+              class="text-teal-400 font-medium inline-flex space-x-1 items-center hover:text-purple-600"
+            >
+              <span>Login now</span>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/patientRegistration.js"></script>
+  </body>
 </html>
