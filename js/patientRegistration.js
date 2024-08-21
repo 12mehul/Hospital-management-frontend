@@ -1,38 +1,25 @@
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const nameRegex = /^[a-zA-Z]+$/;
-const uppercaseRegex = /(?=.*[A-Z])/;
-const lowercaseRegex = /(?=.*[a-z])/;
-const specialCharRegex = /(?=.*[@#$%^&-+=()])/;
-const numberRegex = /(?=.*[0-9])/;
-const noWhitespaceRegex = /(?=\S+$)/;
-const lengthRegex = /.{8,15}/;
-const phoneRegex = /^[0-9]{10}$/;
+import {
+  emailRegex,
+  nameRegex,
+  phoneRegex,
+  validatePassword,
+  isMatchedPass,
+} from "./commonFunction.js";
 
 let currentStep = 0;
 const formSteps = document.querySelectorAll(".form-step");
 
-function isMatchedPass() {
-  let pass = document.getElementById("password").value;
-  let confPass = document.getElementById("confirmPassword").value;
-  return pass === confPass;
-}
+// Wait until the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  const nextButtons = document.querySelectorAll("#nextButton");
 
-function validatePassword(value) {
-  if (!uppercaseRegex.test(value)) {
-    return "Password must contain at least one uppercase letter";
-  } else if (!lowercaseRegex.test(value)) {
-    return "Password must contain at least one lowercase letter";
-  } else if (!specialCharRegex.test(value)) {
-    return "Password must contain at least one special character";
-  } else if (!numberRegex.test(value)) {
-    return "Password must contain at least one numeric digit";
-  } else if (!noWhitespaceRegex.test(value)) {
-    return "Password must not contain any whitespace";
-  } else if (!lengthRegex.test(value)) {
-    return "Password must be 8-15 characters long";
-  }
-  return "";
-}
+  nextButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      nextStep();
+    });
+  });
+});
 
 function genderValidation() {
   let selectedGender = document.querySelector("input[name='gender']:checked");
@@ -109,7 +96,9 @@ function nextStep() {
   if (allValid) {
     formSteps[currentStep].classList.add("hidden");
     currentStep++;
-    formSteps[currentStep].classList.remove("hidden");
+    if (currentStep < formSteps.length) {
+      formSteps[currentStep].classList.remove("hidden");
+    }
   }
 }
 
