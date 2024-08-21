@@ -4,6 +4,8 @@ import {
   phoneRegex,
   validatePassword,
   isMatchedPass,
+  pincodeRegex,
+  genderValidation,
 } from "./commonFunction.js";
 
 let currentStep = 0;
@@ -12,6 +14,7 @@ const formSteps = document.querySelectorAll(".form-step");
 // Wait until the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   const nextButtons = document.querySelectorAll("#nextButton");
+  const prevButtons = document.querySelectorAll("#prevButton");
 
   nextButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -19,15 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
       nextStep();
     });
   });
-});
 
-function genderValidation() {
-  let selectedGender = document.querySelector("input[name='gender']:checked");
-  if (!selectedGender) {
-    return "Please select a gender";
-  }
-  return "";
-}
+  prevButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      prevStep();
+    });
+  });
+
+  // Bind the handleSubmit function to the form's submit event
+  document
+    .getElementById("registrationForm")
+    .addEventListener("submit", handleSubmit);
+});
 
 function checkValidation(name, value) {
   if (!value) {
@@ -59,7 +66,12 @@ function checkValidation(name, value) {
       break;
     case "phone":
       if (!phoneRegex.test(value)) {
-        return "Phone number must be 10 digits long";
+        return "Phone number should be exactly 10 digits";
+      }
+      break;
+    case "pincode":
+      if (!pincodeRegex.test(value)) {
+        return "Pincode should be exactly six digits";
       }
       break;
     default:
@@ -68,7 +80,7 @@ function checkValidation(name, value) {
   return "";
 }
 
-function nextStep() {
+function validateCurrentStep() {
   // Validate all input fields in the current step
   const inputs = formSteps[currentStep].querySelectorAll("input");
   let allValid = true;
@@ -92,8 +104,11 @@ function nextStep() {
       }
     });
   });
+  return allValid;
+}
 
-  if (allValid) {
+function nextStep() {
+  if (validateCurrentStep()) {
     formSteps[currentStep].classList.add("hidden");
     currentStep++;
     if (currentStep < formSteps.length) {
@@ -102,6 +117,54 @@ function nextStep() {
   }
 }
 
-function performValidation() {
-  nextStep();
+function prevStep() {
+  if (currentStep > 0) {
+    formSteps[currentStep].classList.add("hidden");
+    currentStep--;
+    formSteps[currentStep].classList.remove("hidden");
+  }
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+
+  // Validate the last step before submission
+  if (!validateCurrentStep()) {
+    return; // Stop submission if validation fails
+  }
+
+  const formData = new FormData(document.getElementById("registrationForm"));
+  const formObject = {};
+
+  formData.forEach((value, key) => {
+    if (key !== "confirmPassword") {
+      // Check if the key is part of the address and nest it accordingly
+      if (
+        ["addressLine", "city", "state", "country", "pincode"].includes(key)
+      ) {
+        formObject.fullAddress = formObject.fullAddress || {};
+        formObject.fullAddress[key] = value;
+      } else {
+        formObject[key] = value;
+      }
+    }
+  });
+
+  fetch("https://hospital-management-backend-theta.vercel.app/api/patients", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify(formObject),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      document.getElementById("registrationForm").reset();
+      console.log("Success:", data);
+    })
+    .catch((err) => {
+      console.log("Error:", err);
+    });
+
+  return false;
 }

@@ -1,5 +1,5 @@
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-export const nameRegex = /^[a-zA-Z]+$/;
+export const nameRegex = /^[A-Z][a-z]+\s[a-zA-Z\s\.]+/;
 export const uppercaseRegex = /(?=.*[A-Z])/;
 export const lowercaseRegex = /(?=.*[a-z])/;
 export const specialCharRegex = /(?=.*[@#$%^&-+=()])/;
@@ -7,11 +7,20 @@ export const numberRegex = /(?=.*[0-9])/;
 export const noWhitespaceRegex = /(?=\S+$)/;
 export const lengthRegex = /.{8,15}/;
 export const phoneRegex = /^[0-9]{10}$/;
+export const pincodeRegex = /^[0-9]{6}$/;
 
 export function isMatchedPass() {
   let pass = document.getElementById("password").value;
   let confPass = document.getElementById("confirmPassword").value;
   return pass === confPass;
+}
+
+export function genderValidation() {
+  let selectedGender = document.querySelector("input[name='gender']:checked");
+  if (!selectedGender) {
+    return "Please select a gender";
+  }
+  return "";
 }
 
 export function validatePassword(value) {

@@ -65,14 +65,22 @@
                 ></span>
               </div>
             </div>
-            <button
-              class="w-full py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
-              type="button"
-              id="nextButton"
-          
-            >
-              Next
-            </button>
+            <div class="flex justify-between gap-3">
+              <button
+                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                type="button"
+                id="prevButton"
+              >
+                Prev
+              </button>
+              <button
+                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                type="button"
+                id="nextButton"
+              >
+                Next
+              </button>
+            </div>
           </div>
 
           <!-- Step 2 -->
@@ -107,6 +115,7 @@
                       type="radio"
                       id="male"
                       name="gender"
+                      value="male"
                       class="accent-blue-300 focus:accent-blue-500 w-4 h-4"
                     />
                     <label for="male" class="text-lg text-gray-700 font-normal"
@@ -118,6 +127,7 @@
                       type="radio"
                       id="female"
                       name="gender"
+                      value="female"
                       class="accent-blue-300 focus:accent-blue-500 w-4 h-4"
                     />
                     <label
@@ -139,14 +149,22 @@
                 <span id="error-phone" class="pl-2 text-red-500"></span>
               </div>
             </div>
-            <button
-              class="w-full py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
-              type="button"
-              id="nextButton"
-              
-            >
-              Next
-            </button>
+            <div class="flex justify-between gap-3">
+              <button
+                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                type="button"
+                id="prevButton"
+              >
+                Prev
+              </button>
+              <button
+                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                type="button"
+                id="nextButton"
+              >
+                Next
+              </button>
+            </div>
           </div>
 
           <!-- Step 3 -->
@@ -200,27 +218,35 @@
                 <span id="error-pincode" class="pl-2 text-red-500"></span>
               </div>
             </div>
-            <button
-              class="w-full py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
-              type="submit"
-              onclick="performValidation()"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
+            <div class="flex justify-between gap-3">
+              <button
+                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                type="button"
+                id="prevButton"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                />
-              </svg>
-              <span>Submit</span>
-            </button>
+                Prev
+              </button>
+              <button
+                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                type="submit"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                  />
+                </svg>
+                <span>Submit</span>
+              </button>
+            </div>
           </div>
         </form>
         <p class="mt-2 flex gap-1 items-center justify-center">
