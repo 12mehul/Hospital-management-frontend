@@ -6,7 +6,10 @@ import {
   isMatchedPass,
   pincodeRegex,
   genderValidation,
+  onlineApiUrl,
+  offlineApiUrl,
 } from "./commonFunction.js";
+import { showErrorToast, showSuccessToast } from "./toastifyMessage.js";
 
 let currentStep = 0;
 const formSteps = document.querySelectorAll(".form-step");
@@ -42,9 +45,14 @@ function checkValidation(name, value) {
   }
 
   switch (name) {
-    case "name":
+    case "firstName":
       if (!nameRegex.test(value)) {
-        return "Name should contain only letters";
+        return "First name should contain only letters";
+      }
+      break;
+    case "lastName":
+      if (!nameRegex.test(value)) {
+        return "Last name should contain only letters";
       }
       break;
     case "email":
@@ -125,7 +133,7 @@ function prevStep() {
   }
 }
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
 
   // Validate the last step before submission
@@ -150,21 +158,26 @@ function handleSubmit(e) {
     }
   });
 
-  fetch("https://hospital-management-backend-theta.vercel.app/api/patients", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify(formObject),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      document.getElementById("registrationForm").reset();
-      console.log("Success:", data);
-    })
-    .catch((err) => {
-      console.log("Error:", err);
+  try {
+    const response = await fetch(`${offlineApiUrl}/patients`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(formObject),
     });
+    const data = await response.json();
+    if (!response.ok) {
+      showErrorToast(data.msg);
+      return;
+    }
+    if (response.ok) {
+      document.getElementById("registrationForm").reset();
+      showSuccessToast(data.msg);
+    }
+  } catch (err) {
+    showErrorToast("Failed to fetch data");
+  }
 
   return false;
 }

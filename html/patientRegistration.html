@@ -3,13 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Patient Registration</title>
   </head>
-  <body>
+  <body class="bg-cover bg-[url('../img/patient-bg.jpg')]">
     <div class="w-full mx-auto h-screen flex items-center justify-center">
       <div
-        class="max-w-2xl w-full h-auto bg-purple-50 p-3 rounded-xl shadow shadow-slate-300"
+        class="max-w-2xl w-full h-auto bg-sky-50 p-3 rounded-xl shadow-lg shadow-sky-200/50"
       >
         <h2
           class="flex items-center justify-center text-3xl font-semibold text-purple-600"
@@ -22,19 +31,30 @@
         <form id="registrationForm">
           <!-- Step 1 -->
           <div class="form-step flex flex-col gap-4">
-            <div>
-              <input
-                type="text"
-                class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
-                placeholder="Enter your name"
-                name="name"
-              />
-              <span id="error-name" class="pl-2 text-red-500"></span>
+            <div class="flex flex-col md:flex-row gap-3">
+              <div class="w-full">
+                <input
+                  type="text"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+                  placeholder="Enter your first name"
+                  name="firstName"
+                />
+                <span id="error-firstName" class="pl-2 text-red-500"></span>
+              </div>
+              <div class="w-full">
+                <input
+                  type="text"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+                  placeholder="Enter your last name"
+                  name="lastName"
+                />
+                <span id="error-lastName" class="pl-2 text-red-500"></span>
+              </div>
             </div>
             <div>
               <input
                 type="email"
-                class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
                 placeholder="Enter your email"
                 name="email"
               />
@@ -44,7 +64,7 @@
               <div class="w-full">
                 <input
                   type="password"
-                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
                   placeholder="Enter your password"
                   name="password"
                   id="password"
@@ -54,7 +74,7 @@
               <div class="w-full">
                 <input
                   type="password"
-                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
                   placeholder="Enter your confirm password"
                   name="confirmPassword"
                   id="confirmPassword"
@@ -65,16 +85,9 @@
                 ></span>
               </div>
             </div>
-            <div class="flex justify-between gap-3">
+            <div class="flex items-end justify-end gap-3">
               <button
-                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
-                type="button"
-                id="prevButton"
-              >
-                Prev
-              </button>
-              <button
-                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                class="w-40 py-3 font-medium text-white bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
                 type="button"
                 id="nextButton"
               >
@@ -85,80 +98,68 @@
 
           <!-- Step 2 -->
           <div class="form-step flex flex-col gap-4 hidden">
-            <div class="flex flex-col md:flex-row gap-3">
-              <div class="w-full">
-                <input
-                  type="date"
-                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
-                  placeholder="Enter your dob"
-                  name="dob"
-                />
-                <span id="error-dob" class="pl-2 text-red-500"></span>
-              </div>
-              <div class="w-full">
-                <input
-                  type="number"
-                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
-                  placeholder="Enter your age"
-                  name="age"
-                />
-                <span id="error-age" class="pl-2 text-red-500"></span>
-              </div>
+            <div>
+              <input
+                type="date"
+                class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+                placeholder="Enter your dob"
+                name="dob"
+              />
+              <span id="error-dob" class="pl-2 text-red-500"></span>
             </div>
-            <div class="flex flex-col md:flex-row gap-3">
-              <div class="w-full">
-                <div
-                  class="w-full flex gap-3 p-3 bg-white border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
-                >
-                  <div class="flex items-center justify-center gap-3">
-                    <input
-                      type="radio"
-                      id="male"
-                      name="gender"
-                      value="male"
-                      class="accent-blue-300 focus:accent-blue-500 w-4 h-4"
-                    />
-                    <label for="male" class="text-lg text-gray-700 font-normal"
-                      >Male</label
-                    >
-                  </div>
-                  <div class="flex items-center justify-center gap-3">
-                    <input
-                      type="radio"
-                      id="female"
-                      name="gender"
-                      value="female"
-                      class="accent-blue-300 focus:accent-blue-500 w-4 h-4"
-                    />
-                    <label
-                      for="female"
-                      class="text-lg text-gray-700 font-normal"
-                      >Female</label
-                    >
-                  </div>
+            <div>
+              <div
+                class="w-full flex gap-3 p-3 border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+              >
+                <div class="flex items-center justify-center gap-3">
+                  <input
+                    type="radio"
+                    id="male"
+                    name="gender"
+                    value="male"
+                    class="accent-blue-300 focus:accent-blue-500 w-4 h-4"
+                  />
+                  <label for="male" class="text-lg text-gray-700 font-normal"
+                    >Male</label
+                  >
                 </div>
-                <span id="error-gender" class="pl-2 text-red-500"></span>
+                <div class="flex items-center justify-center gap-3">
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="female"
+                    class="accent-blue-300 focus:accent-blue-500 w-4 h-4"
+                  />
+                  <label for="female" class="text-lg text-gray-700 font-normal"
+                    >Female</label
+                  >
+                </div>
               </div>
-              <div class="w-full">
-                <input
-                  type="text"
-                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
-                  placeholder="Enter your phone"
-                  name="phone"
-                />
-                <span id="error-phone" class="pl-2 text-red-500"></span>
-              </div>
+              <span
+                id="error-gender"
+                class="pl-2 text-red-500 empty:hidden"
+              ></span>
+            </div>
+            <div>
+              <input
+                type="text"
+                class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+                placeholder="Enter your phone"
+                name="phone"
+              />
+              <span id="error-phone" class="pl-2 text-red-500"></span>
             </div>
             <div class="flex justify-between gap-3">
               <button
-                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                class="w-40 py-3 font-medium text-white bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
                 type="button"
                 id="prevButton"
               >
                 Prev
               </button>
               <button
-                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                class="w-40 py-3 font-medium text-white bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
                 type="button"
                 id="nextButton"
               >
@@ -172,7 +173,7 @@
             <div>
               <input
                 type="text"
-                class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
                 placeholder="Enter your address"
                 name="addressLine"
               />
@@ -182,7 +183,7 @@
               <div class="w-full">
                 <input
                   type="text"
-                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
                   placeholder="Enter your city"
                   name="city"
                 />
@@ -191,7 +192,7 @@
               <div class="w-full">
                 <input
                   type="text"
-                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
                   placeholder="Enter your state"
                   name="state"
                 />
@@ -202,7 +203,7 @@
               <div class="w-full">
                 <input
                   type="text"
-                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
                   placeholder="Enter your country"
                   name="country"
                 />
@@ -211,7 +212,7 @@
               <div class="w-full">
                 <input
                   type="text"
-                  class="w-full p-3 text-lg text-gray-700 font-normal border border-purple-400 focus:border-purple-500 rounded-md focus:outline-none hover:shadow"
+                  class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
                   placeholder="Enter your pincode"
                   name="pincode"
                 />
@@ -220,14 +221,14 @@
             </div>
             <div class="flex justify-between gap-3">
               <button
-                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                class="w-40 py-3 font-medium text-white bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
                 type="button"
                 id="prevButton"
               >
                 Prev
               </button>
               <button
-                class="w-40 py-3 font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg border-blue-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                class="w-40 py-3 font-medium text-white bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
                 type="submit"
               >
                 <svg

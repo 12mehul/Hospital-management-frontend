@@ -1,5 +1,9 @@
+export const onlineApiUrl =
+  "https://hospital-management-backend-theta.vercel.app/api";
+export const offlineApiUrl = "http://localhost:5000/api";
+
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-export const nameRegex = /^[A-Z][a-z]+\s[a-zA-Z\s\.]+/;
+export const nameRegex = /^[A-Za-z]+$/;
 export const uppercaseRegex = /(?=.*[A-Z])/;
 export const lowercaseRegex = /(?=.*[a-z])/;
 export const specialCharRegex = /(?=.*[@#$%^&-+=()])/;
