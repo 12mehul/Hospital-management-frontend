@@ -159,7 +159,7 @@ async function handleSubmit(e) {
   });
 
   try {
-    const response = await fetch(`${offlineApiUrl}/patients`, {
+    const response = await fetch(`${onlineApiUrl}/patients`, {
       headers: {
         "Content-Type": "application/json",
       },
