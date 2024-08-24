@@ -5,26 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Home</title>
+    <style>
+      .active-menu {
+        color: #0044ff;
+        border-bottom: 2px solid #06b6d4;
+      }
+    </style>
   </head>
   <body>
     <div class="w-full mx-auto">
-      <div
-        class="mt-2 w-full mx-auto bg-sky-50 p-4 rounded-xl shadow-lg shadow-sky-200/50"
+      <!-- Header -->
+      <header
+        class="fixed top-0 left-0 w-full mx-auto bg-sky-50 p-4 rounded-xl shadow-lg shadow-sky-200/50 z-50"
       >
-        <div class="flex justify-between">
+        <div class="w-full flex justify-between">
           <div class="flex gap-2 items-start">
-            <img src="../img/logo.jpg" alt="logo" class="w-20 h-20" />
+            <img src="../img/logo.png" alt="logo" class="w-16 h-16" />
             <h2 class="flex items-start text-2xl font-semibold text-blue-800">
               HealthCare Wellness Center
             </h2>
           </div>
-          <div>
-            <button
-              class="w-20 py-2 font-medium text-white bg-sky-500 shadow-lg shadow-sky-500/50 hover:bg-sky-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
-              type="button"
-            >
-              Register
-            </button>
+          <div class="flex flex-col md:flex-row gap-2">
+            <div class="relative">
+              <button
+                id="register-btn"
+                class="w-20 py-2 font-medium text-white bg-sky-500 shadow-lg shadow-sky-500/50 hover:bg-sky-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner focus:outline-none"
+                type="button"
+              >
+                Register
+              </button>
+              <div
+                id="register-dropdown"
+                class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg hidden"
+              >
+                <a
+                  href="/html/patientRegistration.html"
+                  class="block px-2 py-2 text-gray-800 hover:bg-gray-100 hover:text-blue-500"
+                >
+                  Patient Registration
+                </a>
+                <a
+                  href="/html/doctorRegistration.html"
+                  class="block px-2 py-2 text-gray-800 hover:bg-gray-100 hover:text-blue-500"
+                >
+                  Doctor Registration
+                </a>
+              </div>
+            </div>
             <a href="/html/login.html">
               <button
                 class="w-20 py-2 font-medium text-white bg-sky-500 shadow-lg shadow-sky-500/50 hover:bg-sky-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
@@ -35,7 +62,181 @@
             </a>
           </div>
         </div>
+        <div class="mt-2 md:mt-0 w-full flex items-center justify-center">
+          <ul
+            class="p-2 flex gap-4 text-2xl font-semibold bg-white rounded-md shadow-md shadow-sky-300/50"
+          >
+            <li>
+              <a
+                class="menu-link text-gray-700 hover:text-blue-500 hover:border-b-2 hover:border-cyan-500 rounded-b-md"
+                aria-current="page"
+                href="#home"
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                class="menu-link text-gray-700 hover:text-blue-500 hover:border-b-2 hover:border-cyan-500 rounded-b-md"
+                href="#appointment"
+              >
+                Appointment
+              </a>
+            </li>
+            <li>
+              <a
+                class="menu-link text-gray-700 hover:text-blue-500 hover:border-b-2 hover:border-cyan-500 rounded-b-md"
+                href="#about"
+              >
+                About Us
+              </a>
+            </li>
+          </ul>
+        </div>
+      </header>
+
+      <!-- Content Sections -->
+      <div class="mt-40">
+        <!-- Home -->
+        <section id="home">
+          <div class="m-4 py-2 border-b-2 border-slate-500 rounded-b-md">
+            <h2
+              class="pt-10 sm:pt-5 md:pt-4 text-center text-2xl font-semibold text-blue-800"
+            >
+              Welcome to our HealthCare Wellness Center!
+            </h2>
+            <div
+              class="w-full pt-2 flex flex-col md:flex-row items-center justify-center gap-4"
+            >
+              <img
+                src="../img/doctor.jpg"
+                alt="logo"
+                class="w-96 h-96 rounded-md"
+              />
+              <div class="max-w-2xl mx-10 flex flex-col gap-3">
+                <h3 class="text-xl font-semibold text-sky-500">
+                  Your health and convenience are our top priorities. Our
+                  user-friendly platform allows you to:
+                </h3>
+                <p class="text-base font-normal text-gray-700">
+                  Schedule your appointments with just a few clicks. Whether
+                  you're looking for a general practitioner or a specialist,
+                  we've got you covered.
+                </p>
+                <p class="text-base font-normal text-gray-700">
+                  Searching for the right surgeon or specialist? Our app helps
+                  you find the best doctors based on their available time slots,
+                  so you can get the care you need when it suits you best.
+                </p>
+                <p class="text-base font-normal text-gray-700">
+                  Keep track of your appointments and medical history all in one
+                  place. Our app is designed to make healthcare management
+                  simple and stress-free.
+                </p>
+                <span class="text-base font-normal text-gray-700">
+                  <b>Get Started Now!</b> <br />
+                  Find the right doctor, book an appointment, and take control
+                  of your health with ease.
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Appointment -->
+        <section id="appointment">
+          <div class="m-4 py-2 border-b-2 border-slate-500 rounded-b-md">
+            <h2
+              class="pt-10 sm:pt-5 md:pt-4 text-center text-2xl font-semibold text-blue-800"
+            >
+              Book Your Appointment with Ease
+            </h2>
+            <div
+              class="w-full pt-2 flex flex-col-reverse md:flex-row items-center justify-center gap-4"
+            >
+              <div class="max-w-2xl mx-10 flex flex-col gap-3">
+                <h3 class="text-xl font-semibold text-sky-500">
+                  Take control of your healthcare by booking appointments that
+                  fit your schedule:
+                </h3>
+                <p class="text-base font-normal text-gray-700">
+                  Choose your preferred doctor, select an available time slot,
+                  and book your appointment in just a few steps.
+                </p>
+                <p class="text-base font-normal text-gray-700">
+                  Need specialized care? Our app makes it easy to find and
+                  schedule appointments with top surgeons and specialists.
+                </p>
+                <p class="text-base font-normal text-gray-700">
+                  Browse through available time slots and pick the one that
+                  works best for you. Whether it's for today or a future date,
+                  we've got options to suit your needs.
+                </p>
+                <p class="text-base font-normal text-gray-700">
+                  Receive instant confirmation and reminders about your
+                  appointments, so you never miss a visit.
+                </p>
+                <span class="text-base font-normal text-gray-700">
+                  <b>Start Booking Now!</b> <br />
+                  Your next appointment is just a click away. Find the right
+                  time and get the care you need.
+                </span>
+              </div>
+              <img
+                src="../img/appointment.png"
+                alt="logo"
+                class="w-96 h-96 rounded-md"
+              />
+            </div>
+            <a href="#" class="flex items-start justify-center my-2">
+              <button
+                class="w-40 py-2 font-medium text-white bg-sky-500 shadow-lg shadow-sky-500/50 hover:bg-sky-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
+                type="button"
+              >
+                Book Appointment
+              </button>
+            </a>
+          </div>
+        </section>
+
+        <!-- About Us -->
+        <section id="about"></section>
       </div>
     </div>
+
+    <script>
+      // Dropdown functionality
+      document
+        .getElementById("register-btn")
+        .addEventListener("click", function () {
+          const dropdown = document.getElementById("register-dropdown");
+          dropdown.classList.toggle("hidden");
+        });
+
+      // Menu active state functionality
+      document.querySelectorAll(".menu-link").forEach(function (menuLink) {
+        menuLink.addEventListener("click", function () {
+          // Remove active class from all menu items
+          document.querySelectorAll(".menu-link").forEach(function (item) {
+            item.classList.remove("active-menu");
+          });
+          // Add active class to the clicked menu item
+          menuLink.classList.add("active-menu");
+        });
+      });
+
+      // Scroll to the section on click and set active class
+      document.querySelectorAll(".menu-link").forEach(function (menuLink) {
+        menuLink.addEventListener("click", function (event) {
+          event.preventDefault();
+          const targetId = menuLink.getAttribute("href").substring(1);
+          const targetSection = document.getElementById(targetId);
+          window.scrollTo({
+            top: targetSection.offsetTop - 20,
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
   </body>
 </html>
