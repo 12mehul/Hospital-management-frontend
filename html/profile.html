@@ -29,6 +29,18 @@
       import { checkAuth } from "../js/storeToken.js";
       import { loadComponents } from "../js/commonFunction.js";
 
+      // Authenticate and then load components and profile
+      checkAuth()
+        .then(() => {
+          return loadComponents();
+        })
+        .then(() => {
+          loadProfile();
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+        });
+
       function loadProfile() {
         const profileContainer = document.getElementById("profile-container");
         const role = localStorage.getItem("role");
@@ -62,14 +74,6 @@
             console.log("Error fetching profile:", error);
           });
       }
-
-      loadComponents();
-      loadProfile();
-      //   function initialize() {
-      //     checkAuth("/html/profile.html");
-      //     loadProfile();
-      //   }
-      //   window.onload = initialize;
     </script>
   </body>
 </html>

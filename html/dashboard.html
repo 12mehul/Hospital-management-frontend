@@ -25,9 +25,17 @@
     </div>
 
     <script type="module">
+      import { checkAuth } from "../js/storeToken.js";
       import { loadComponents } from "../js/commonFunction.js";
 
-      loadComponents();
+      // Authenticate and then load components
+      checkAuth()
+        .then(() => {
+          return loadComponents();
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+        });
     </script>
   </body>
 </html>

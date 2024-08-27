@@ -48,14 +48,25 @@ export function loadComponents() {
   const sidebarContainer = document.getElementById("sidebar-container");
   const headerContainer = document.getElementById("header-container");
 
-  // Fetch both sidebar and header concurrently
-  Promise.all([
-    fetch("../common/sidebar.html").then((response) => response.text()),
-    fetch("../common/header.html").then((response) => response.text()),
-  ])
-    .then(([sidebarData, headerData]) => {
-      sidebarContainer.innerHTML = sidebarData;
-      headerContainer.innerHTML = headerData;
+  // Create an array of promises for loading components
+  const loadSidebar = fetch("../common/sidebar.html")
+    .then((response) => {
+      if (!response.ok) throw new Error("Failed to load sidebar");
+      return response.text();
     })
-    .catch((error) => console.log("Error loading components:", error));
+    .then((data) => {
+      sidebarContainer.innerHTML = data;
+    });
+
+  const loadHeader = fetch("../common/header.html")
+    .then((response) => {
+      if (!response.ok) throw new Error("Failed to load header");
+      return response.text();
+    })
+    .then((data) => {
+      headerContainer.innerHTML = data;
+    });
+
+  // Return a promise that resolves when both components are loaded
+  return Promise.all([loadSidebar, loadHeader]);
 }
