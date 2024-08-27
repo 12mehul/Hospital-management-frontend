@@ -43,3 +43,19 @@ export function validatePassword(value) {
   }
   return "";
 }
+
+export function loadComponents() {
+  const sidebarContainer = document.getElementById("sidebar-container");
+  const headerContainer = document.getElementById("header-container");
+
+  // Fetch both sidebar and header concurrently
+  Promise.all([
+    fetch("../common/sidebar.html").then((response) => response.text()),
+    fetch("../common/header.html").then((response) => response.text()),
+  ])
+    .then(([sidebarData, headerData]) => {
+      sidebarContainer.innerHTML = sidebarData;
+      headerContainer.innerHTML = headerData;
+    })
+    .catch((error) => console.log("Error loading components:", error));
+}

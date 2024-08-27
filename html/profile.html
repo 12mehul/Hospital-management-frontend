@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Profile Page</title>
+  </head>
+  <body>
+    <div class="flex flex-col min-h-screen">
+      <!-- Header -->
+      <div id="header-container"></div>
+      <div class="w-full h-screen flex">
+        <!-- Sidebar -->
+        <div id="sidebar-container"></div>
+        <!-- Main content of the page -->
+        <div
+          class="w-full flex-1 bg-purple-50 p-5 overflow-x-hidden overflow-y-auto"
+          id="content"
+        >
+          <div id="profile-container">
+            <p>Loading profile...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { checkAuth } from "../js/storeToken.js";
+      import { loadComponents } from "../js/commonFunction.js";
+
+      function loadProfile() {
+        const profileContainer = document.getElementById("profile-container");
+        const role = localStorage.getItem("role");
+
+        let profilePage = "";
+
+        if (role === "doctor") {
+          profilePage = "../common/doctorProfile.html";
+        } else if (role === "patient") {
+          profilePage = "../common/patientProfile.html";
+        } else {
+          profileContainer.innerHTML = "<p>Error: Role not recognized.</p>";
+          return;
+        }
+
+        // Fetch the appropriate profile page
+        fetch(profilePage)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.text();
+          })
+          .then((data) => {
+            profileContainer.innerHTML = data;
+          })
+          .catch((error) => {
+            profileContainer.innerHTML = "<p>Error loading profile.</p>";
+            console.log("Error fetching profile:", error);
+          });
+      }
+
+      loadComponents();
+      loadProfile();
+      //   function initialize() {
+      //     checkAuth("/html/profile.html");
+      //     loadProfile();
+      //   }
+      //   window.onload = initialize;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <div class="flex flex-col min-h-screen">
+      <!-- Header -->
+      <div id="header-container"></div>
+      <div class="w-full h-screen flex">
+        <!-- Sidebar -->
+        <div id="sidebar-container"></div>
+        <!-- Main content of the page -->
+        <div
+          class="w-full flex-1 bg-purple-50 p-5 overflow-x-hidden overflow-y-auto"
+          id="content"
+        >
+          <h1>Welcome to the Main Page</h1>
+          <p>This is the main content area.</p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { loadComponents } from "../js/commonFunction.js";
+
+      loadComponents();
+    </script>
+  </body>
+</html>
