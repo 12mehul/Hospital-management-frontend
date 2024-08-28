@@ -10,7 +10,14 @@ export function checkAuth() {
   });
 }
 
+export function checkAuthRoute() {
+  const token = localStorage.getItem("token");
+  if (token) {
+    window.location.href = "/html/dashboard.html";
+  }
+}
+
 export function logout() {
   localStorage.clear();
-  window.location.href = "/login/login.html";
+  window.location.href = "/html/login.html";
 }

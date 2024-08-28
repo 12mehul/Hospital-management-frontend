@@ -1,3 +1,5 @@
+import { logout } from "./storeToken.js";
+
 export const onlineApiUrl =
   "https://hospital-management-backend-theta.vercel.app/api";
 export const offlineApiUrl = "http://localhost:5000/api";
@@ -45,9 +47,6 @@ export function validatePassword(value) {
 }
 
 export function loadComponents() {
-  const sidebarContainer = document.getElementById("sidebar-container");
-  const headerContainer = document.getElementById("header-container");
-
   // Create an array of promises for loading components
   const loadSidebar = fetch("../common/sidebar.html")
     .then((response) => {
@@ -55,7 +54,26 @@ export function loadComponents() {
       return response.text();
     })
     .then((data) => {
-      sidebarContainer.innerHTML = data;
+      document.getElementById("sidebar-container").innerHTML = data;
+      const sidebarContainer = document.getElementById("menu-items");
+      const role = localStorage.getItem("role");
+
+      let sidebarHTML = ``;
+      if (role === "doctor") {
+        sidebarHTML += `
+          <li>
+            <a
+              href="/html/patientsList.html"
+              class="flex items-center p-2 text-base font-semibold rounded-lg group hover:bg-purple-100 hover:text-blue-600"
+            >
+              <span class="text-xl">🧑‍⚕️</span>
+              <span class="flex-1 ml-3 whitespace-nowrap">Patients List</span>
+            </a>
+          </li>
+        `;
+      }
+
+      sidebarContainer.innerHTML += sidebarHTML;
     });
 
   const loadHeader = fetch("../common/header.html")
@@ -64,7 +82,13 @@ export function loadComponents() {
       return response.text();
     })
     .then((data) => {
+      const headerContainer = document.getElementById("header-container");
       headerContainer.innerHTML = data;
+
+      const logoutBtn = headerContainer.querySelector("button");
+      logoutBtn.addEventListener("click", () => {
+        logout();
+      });
     });
 
   // Return a promise that resolves when both components are loaded

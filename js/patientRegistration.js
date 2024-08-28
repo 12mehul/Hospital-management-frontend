@@ -9,6 +9,7 @@ import {
   onlineApiUrl,
   offlineApiUrl,
 } from "./commonFunction.js";
+import { checkAuthRoute } from "./storeToken.js";
 import { showErrorToast, showSuccessToast } from "./toastifyMessage.js";
 
 let currentStep = 0;
@@ -16,6 +17,7 @@ const formSteps = document.querySelectorAll(".form-step");
 
 // Wait until the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
+  checkAuthRoute();
   const nextButtons = document.querySelectorAll("#nextButton");
   const prevButtons = document.querySelectorAll("#prevButton");
 
