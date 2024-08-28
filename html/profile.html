@@ -25,55 +25,6 @@
       </div>
     </div>
 
-    <script type="module">
-      import { checkAuth } from "../js/storeToken.js";
-      import { loadComponents } from "../js/commonFunction.js";
-
-      // Authenticate and then load components and profile
-      checkAuth()
-        .then(() => {
-          return loadComponents();
-        })
-        .then(() => {
-          loadProfile();
-        })
-        .catch((error) => {
-          console.log("Error:", error);
-        });
-
-      function loadProfile() {
-        const profileContainer = document.getElementById("profile-container");
-        const role = localStorage.getItem("role");
-
-        let profilePage = "";
-
-        if (role === "doctor") {
-          profilePage = "../common/doctorProfile.html";
-        } else if (role === "patient") {
-          profilePage = "../common/patientProfile.html";
-        } else {
-          profileContainer.innerHTML = "<p>Error: Role not recognized.</p>";
-          return;
-        }
-
-        // Fetch the appropriate profile page
-        fetch(profilePage)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(
-                "Network response was not ok " + response.statusText
-              );
-            }
-            return response.text();
-          })
-          .then((data) => {
-            profileContainer.innerHTML = data;
-          })
-          .catch((error) => {
-            profileContainer.innerHTML = "<p>Error loading profile.</p>";
-            console.log("Error fetching profile:", error);
-          });
-      }
-    </script>
+    <script type="module" src="../js/profile.js"></script>
   </body>
 </html>

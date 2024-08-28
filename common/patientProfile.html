@@ -6,12 +6,11 @@
     class="max-w-2xl w-full h-auto bg-white p-3 rounded-xl shadow-lg shadow-sky-200/50"
   >
     <h2
-      class="flex items-center justify-center text-3xl font-semibold text-blue-800"
+      class="my-3 flex items-center justify-center text-xl font-semibold text-blue-800"
     >
-      Patient Profile
+      Welcome, Patient. Here is your profile information
     </h2>
-    <p>Welcome, Patient. Here is your profile information.</p>
-    <form id="registrationForm">
+    <form id="profileForm">
       <div class="flex flex-col gap-4">
         <div class="flex flex-col md:flex-row gap-3">
           <div class="w-full">
@@ -42,28 +41,105 @@
           />
           <span id="error-email" class="pl-2 text-red-500"></span>
         </div>
+        <div>
+          <input
+            type="password"
+            class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+            placeholder="Enter your password"
+            name="password"
+            id="password"
+          />
+          <span id="error-password" class="pl-2 text-red-500"></span>
+        </div>
         <div class="flex flex-col md:flex-row gap-3">
           <div class="w-full">
             <input
-              type="password"
+              type="date"
               class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
-              placeholder="Enter your password"
-              name="password"
-              id="password"
+              placeholder="Enter your dob"
+              name="dob"
             />
-            <span id="error-password" class="pl-2 text-red-500"></span>
+            <span id="error-dob" class="pl-2 text-red-500"></span>
           </div>
           <div class="w-full">
             <input
-              type="password"
+              type="text"
               class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
-              placeholder="Enter your confirm password"
-              name="confirmPassword"
-              id="confirmPassword"
+              placeholder="Enter your phone"
+              name="phone"
             />
-            <span id="error-confirmPassword" class="pl-2 text-red-500"></span>
+            <span id="error-phone" class="pl-2 text-red-500"></span>
           </div>
         </div>
+        <div>
+          <input
+            type="text"
+            class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+            placeholder="Enter your address"
+            name="fullAddress.addressLine"
+          />
+          <span id="error-addressLine" class="pl-2 text-red-500"></span>
+        </div>
+        <div class="flex flex-col md:flex-row gap-3">
+          <div class="w-full">
+            <input
+              type="text"
+              class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+              placeholder="Enter your city"
+              name="fullAddress.city"
+            />
+            <span id="error-city" class="pl-2 text-red-500"></span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+              placeholder="Enter your state"
+              name="fullAddress.state"
+            />
+            <span id="error-state" class="pl-2 text-red-500"></span>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row gap-3">
+          <div class="w-full">
+            <input
+              type="text"
+              class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+              placeholder="Enter your country"
+              name="fullAddress.country"
+            />
+            <span id="error-country" class="pl-2 text-red-500"></span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+              placeholder="Enter your pincode"
+              name="fullAddress.pincode"
+            />
+            <span id="error-pincode" class="pl-2 text-red-500"></span>
+          </div>
+        </div>
+        <button
+          class="w-full py-3 font-medium text-white bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
+          type="submit"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+            />
+          </svg>
+          <span>Submit</span>
+        </button>
       </div>
     </form>
   </div>
