@@ -94,3 +94,17 @@ export function loadComponents() {
   // Return a promise that resolves when both components are loaded
   return Promise.all([loadSidebar, loadHeader]);
 }
+
+export function SpecialityList() {
+  fetch(`${onlineApiUrl}/speciality`)
+    .then((res) => res.json())
+    .then((data) => {
+      const options = data.specialities.map((val) => {
+        return `<option value="${val._id}">${val.title}</option>`;
+      });
+
+      options.unshift(`<option value="">Select Speciality</option>`);
+      document.getElementById("specialization").innerHTML = options.join(" ");
+    })
+    .catch((err) => console.log(err));
+}

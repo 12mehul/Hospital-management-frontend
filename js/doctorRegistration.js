@@ -7,6 +7,7 @@ import {
   pincodeRegex,
   genderValidation,
   onlineApiUrl,
+  SpecialityList,
 } from "./commonFunction.js";
 import { checkAuthRoute } from "./storeToken.js";
 import { showErrorToast, showSuccessToast } from "./toastifyMessage.js";
@@ -39,6 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("registrationForm")
     .addEventListener("submit", handleSubmit);
 });
+
+SpecialityList();
 
 function checkValidation(name, value) {
   if (!value) {
@@ -89,9 +92,20 @@ function checkValidation(name, value) {
   return "";
 }
 
+function selectValidation(name, value) {
+  if (
+    name === "specializationId" &&
+    (value === "" || value === "Select Speciality")
+  ) {
+    return "Please select a speciality";
+  }
+  return "";
+}
+
 function validateCurrentStep() {
   // Validate all input fields in the current step
   const inputs = formSteps[currentStep].querySelectorAll("input");
+  const select = formSteps[currentStep].querySelector("select");
   let allValid = true;
 
   inputs.forEach((input) => {
@@ -113,6 +127,25 @@ function validateCurrentStep() {
       }
     });
   });
+
+  // Validate the select element
+  if (select) {
+    const message = selectValidation(select.name, select.value);
+    document.getElementById(`error-${select.name}`).innerHTML = message;
+    if (message) {
+      allValid = false;
+    }
+
+    select.addEventListener("change", function () {
+      const message = selectValidation(select.name, select.value);
+      document.getElementById(`error-${select.name}`).innerHTML = message;
+      if (message) {
+        allValid = false;
+      } else {
+        allValid = true;
+      }
+    });
+  }
   return allValid;
 }
 
@@ -160,7 +193,7 @@ async function handleSubmit(e) {
   });
 
   try {
-    const response = await fetch(`${onlineApiUrl}/patients`, {
+    const response = await fetch(`${onlineApiUrl}/doctors`, {
       headers: {
         "Content-Type": "application/json",
       },
