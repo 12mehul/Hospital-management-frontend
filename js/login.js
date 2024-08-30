@@ -71,7 +71,7 @@ async function handleSubmit(e) {
       localStorage.setItem("id", data.userId);
       localStorage.setItem("role", data.role);
       setTimeout(() => {
-        window.location.href = "/html/dashboard.html";
+        window.location.href = "/html/bookAppointment.html";
       }, 3000);
     }
   } catch (err) {

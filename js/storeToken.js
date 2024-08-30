@@ -13,7 +13,7 @@ export function checkAuth() {
 export function checkAuthRoute() {
   const token = localStorage.getItem("token");
   if (token) {
-    window.location.href = "/html/dashboard.html";
+    window.location.href = "/html/bookAppointment.html";
   }
 }
 

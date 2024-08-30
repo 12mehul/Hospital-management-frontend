@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Dashboard</title>
+    <title>Book Appointment</title>
   </head>
   <body>
     <div class="flex flex-col min-h-screen">
@@ -24,18 +24,6 @@
       </div>
     </div>
 
-    <script type="module">
-      import { checkAuth } from "../js/storeToken.js";
-      import { loadComponents } from "../js/commonFunction.js";
-
-      // Authenticate and then load components
-      checkAuth()
-        .then(() => {
-          return loadComponents();
-        })
-        .catch((error) => {
-          console.log("Error:", error);
-        });
-    </script>
+    <script type="module" src="../js/bookAppointment.js"></script>
   </body>
 </html>
