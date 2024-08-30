@@ -1,30 +1,27 @@
-import { checkAuth } from "../js/storeToken.js";
-import { loadComponents, onlineApiUrl } from "../js/commonFunction.js";
+import { checkAuth } from "./storeToken.js";
+import { loadComponents, onlineApiUrl } from "./commonFunction.js";
+import { showErrorToast, showSuccessToast } from "./toastifyMessage.js";
 
 // Authenticate and then load components and profile
 checkAuth()
   .then(() => {
     return loadComponents();
   })
-  .then(() => {
-    loadProfile();
-  })
-  .catch((error) => {
-    console.log("Error:", error);
-  });
+  .then(() => loadProfile())
+  .catch((error) => console.log("Error:", error));
 
 function loadProfile() {
   const profileContainer = document.getElementById("profile-container");
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
 
-  let profilePage = "";
+  const profilePages = {
+    doctor: "../common/doctorProfile.html",
+    patient: "../common/patientProfile.html",
+  };
 
-  if (role === "doctor") {
-    profilePage = "../common/doctorProfile.html";
-  } else if (role === "patient") {
-    profilePage = "../common/patientProfile.html";
-  } else {
+  const profilePage = profilePages[role];
+  if (!profilePage) {
     profileContainer.innerHTML = "<p>Error: Role not recognized.</p>";
     return;
   }
@@ -39,13 +36,20 @@ function loadProfile() {
     })
     .then((data) => {
       profileContainer.innerHTML = data;
-      // Fetch the profile data from the API
+      attachFormSubmitListener();
       fetchProfileData(role, token);
     })
     .catch((error) => {
       profileContainer.innerHTML = "<p>Error loading profile.</p>";
       console.log("Error fetching profile:", error);
     });
+}
+
+function attachFormSubmitListener() {
+  const profileForm = document.getElementById("profileForm");
+  if (profileForm) {
+    profileForm.addEventListener("submit", handleSubmit);
+  }
 }
 
 function fetchProfileData(role, token) {
@@ -55,31 +59,18 @@ function fetchProfileData(role, token) {
     },
   })
     .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      populateForm(role, data);
-    })
-    .catch((err) => {
-      console.log("Error fetching profile data:", err);
-    });
+    .then((data) => populateForm(role, data))
+    .catch((err) => console.log("Error fetching profile data:", err));
 }
 
 const roleFields = {
-  patient: [
-    "firstName",
-    "lastName",
-    "email",
-    "password",
-    "dob",
-    "phone",
-    "addressLine",
-  ],
+  patient: ["firstName", "lastName", "password", "phone"],
   doctor: [
     "firstName",
     "lastName",
-    "email",
     "password",
-    "specialization",
+    "phone",
+    "experience",
     "licenseNumber",
   ],
 };
@@ -114,45 +105,50 @@ function populateForm(role, data) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  document
-    .getElementById("profileForm")
-    .addEventListener("submit", handleSubmit);
-});
-
 async function handleSubmit(e) {
   e.preventDefault();
 
   const role = localStorage.getItem("role");
+  const id = localStorage.getItem("id");
   const fields = roleFields[role] || [];
   const formData = {};
 
   // Handle non-address fields
   fields.forEach((field) => {
-    formData[field] = document.querySelector(`input[name="${field}"]`).value;
+    const inputElement = document.querySelector(`input[name="${field}"]`);
+    if (inputElement) {
+      formData[field] = inputElement.value;
+    }
   });
 
   // Handle the nested address object
   formData.fullAddress = {};
   const addressFields = ["addressLine", "city", "state", "country", "pincode"];
   addressFields.forEach((field) => {
-    formData.address[field] = document.querySelector(
+    formData.fullAddress[field] = document.querySelector(
       `input[name="fullAddress.${field}"]`
     ).value;
   });
 
-  fetch("/api/profile", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Profile updated successfully:", data);
-    })
-    .catch((error) => {
-      console.log("Error updating profile:", error);
+  try {
+    const response = await fetch(`${onlineApiUrl}/accounts/update/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PUT",
+      body: JSON.stringify(formData),
     });
+    const data = await response.json();
+    if (!response.ok) {
+      showErrorToast(data.msg);
+      return;
+    }
+    if (response.ok) {
+      showSuccessToast(data.msg);
+    }
+  } catch (err) {
+    showErrorToast("Error updating profile");
+  }
+
+  return false;
 }
