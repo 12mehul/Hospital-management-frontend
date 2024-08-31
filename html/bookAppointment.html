@@ -34,11 +34,19 @@
               Find Doctor & Book An Appointment
             </h2>
             <div class="p-1">
-              <div class="mt-2 flex items-center justify-center">
+              <div class="mt-2 mb-2 flex gap-3 items-center justify-center">
                 <span
-                  class="w-64 py-3 text-black bg-white shadow-md shadow-blue-500/50 rounded-full inline-flex space-x-2 items-center justify-center shadow-inner text-xl font-medium"
-                  >Speciality</span
+                  class="w-64 py-3 text-black bg-white shadow-md shadow-blue-500/50 rounded-full inline-flex space-x-2 items-center justify-center shadow-inner text-xl font-medium cursor-pointer"
+                  id="speciality-btn"
                 >
+                  Speciality
+                </span>
+                <span
+                  class="w-64 py-3 text-black bg-white shadow-md shadow-blue-500/50 rounded-full inline-flex space-x-2 items-center justify-center shadow-inner text-xl font-medium cursor-pointer"
+                  id="doctors-btn"
+                >
+                  Doctors
+                </span>
               </div>
               <form id="appointment-form">
                 <!-- Step 1: Speciality -->
@@ -52,7 +60,7 @@
                 <!-- Step 2: Doctors -->
                 <div class="form-step hidden">
                   <div
-                    class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-2 xl:p-5"
+                    class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-4"
                     id="doctors-list"
                   ></div>
                 </div>
@@ -60,7 +68,7 @@
                 <!-- Step 3: Slots -->
                 <div class="form-step hidden">
                   <div
-                    class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-2 xl:p-5"
+                    class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4"
                     id="slots-list"
                   ></div>
                 </div>
@@ -70,17 +78,10 @@
                   <button
                     type="button"
                     id="prev-btn"
-                    class="p-2 bg-gray-500 text-white rounded hover:bg-gray-400"
+                    class="w-40 py-3 font-medium text-white bg-gray-500 shadow-lg shadow-gray-500/50 hover:bg-gray-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
                     disabled
                   >
                     Prev
-                  </button>
-                  <button
-                    type="button"
-                    id="next-btn"
-                    class="p-2 bg-blue-500 text-white rounded hover:bg-blue-400"
-                  >
-                    Next
                   </button>
                 </div>
               </form>
