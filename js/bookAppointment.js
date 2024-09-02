@@ -114,21 +114,33 @@ function DoctorList(specialityId) {
 }
 
 function SlotList(doctorId) {
-  fetch(`${onlineApiUrl}/slots?doctor=${doctorId}`)
+  fetch(`${onlineApiUrl}/slots?doctorId=${doctorId}`)
     .then((res) => res.json())
     .then((data) => {
-      const options = data.slots.map(
-        (val) => `
-          <div class="bg-white border rounded-lg shadow-md transform transition duration-500 hover:scale-105 p-2">
-              <h5 class="text-xl font-semibold tracking-tight text-gray-900">
-                ${new Date(val.time).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </h5>
+      if (data.slots.length === 0) {
+        document.getElementById("slots-list").innerHTML = `
+          <div class="text-center font-semibold text-gray-600 text-2xl">
+            No slots available.
           </div>
-        `
-      );
+        `;
+        return;
+      }
+      const options = data.slots.map((val) => {
+        const isBooked = !val.isAvailable;
+        const slotClasses = isBooked
+          ? "bg-gray-300 cursor-not-allowed opacity-50"
+          : "bg-white cursor-pointer hover:shadow-sky-400";
+        return `
+          <div class="flex flex-col gap-2 items-center justify-center border rounded-lg shadow-md transform transition duration-500 hover:scale-105 p-2 ${slotClasses}">
+            <h5 class="text-xl font-semibold tracking-tight text-gray-900">
+              ${new Date(val.date).toLocaleDateString()}
+            </h5>
+            <h5 class="text-lg font-medium tracking-tight text-blue-600">
+              ${val.time}
+            </h5>
+          </div>
+        `;
+      });
 
       document.getElementById("slots-list").innerHTML = options.join(" ");
     })
