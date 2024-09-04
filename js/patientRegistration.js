@@ -175,6 +175,9 @@ async function handleSubmit(e) {
     if (response.ok) {
       document.getElementById("registrationForm").reset();
       showSuccessToast(data.msg);
+      setTimeout(() => {
+        window.location.href = "/html/login.html";
+      }, 3000);
     }
   } catch (err) {
     showErrorToast("Failed to fetch data");

@@ -64,15 +64,8 @@ function fetchProfileData(role, token) {
 }
 
 const roleFields = {
-  patient: ["firstName", "lastName", "password", "phone"],
-  doctor: [
-    "firstName",
-    "lastName",
-    "password",
-    "phone",
-    "experience",
-    "licenseNumber",
-  ],
+  patient: ["firstName", "lastName", "phone"],
+  doctor: ["firstName", "lastName", "phone", "experience", "licenseNumber"],
 };
 
 function populateForm(role, data) {
