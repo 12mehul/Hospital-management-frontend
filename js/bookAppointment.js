@@ -4,10 +4,18 @@ import { showErrorToast, showSuccessToast } from "./toastifyMessage.js";
 
 let currentStep = 0;
 let selectedSpecialityId = null;
+let selectedDoctorId = null;
+let selectedSlotId = null;
+let selectedPatientId = null;
+
 const steps = document.querySelectorAll(".form-step");
 const specialityBtn = document.querySelector("#speciality-btn");
 const doctorsBtn = document.querySelector("#doctors-btn");
 const prevBtn = document.getElementById("prev-btn");
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("submit-btn").addEventListener("click", handleSubmit);
+});
 
 // Authenticate and then load components
 checkAuth()
@@ -100,12 +108,12 @@ function DoctorList(specialityId) {
       document.querySelectorAll("[data-doctor-id]").forEach((item) => {
         item.addEventListener("click", (e) => {
           e.preventDefault();
-          const doctorId = item.dataset.doctorId;
+          selectedDoctorId = item.dataset.doctorId;
           // Set the selectedSpecialityId based on the doctor's specialty
           selectedSpecialityId =
-            data.doctors.find((doc) => doc._id === doctorId)?.specializationId
-              ._id || null;
-          SlotList(doctorId);
+            data.doctors.find((doc) => doc._id === selectedDoctorId)
+              ?.specializationId._id || null;
+          SlotList(selectedDoctorId);
           showStep(2);
         });
       });
@@ -131,7 +139,8 @@ function SlotList(doctorId) {
           ? "bg-gray-300 cursor-not-allowed opacity-50"
           : "bg-white cursor-pointer hover:shadow-sky-400";
         return `
-          <div class="flex gap-4 items-center justify-center border rounded-lg shadow-md transform transition duration-500 hover:scale-105 p-2 ${slotClasses}">
+          <div class="flex gap-4 items-center justify-center border rounded-lg shadow-md transform transition duration-500 hover:scale-105 p-2 ${slotClasses}"
+            data-slot-id="${val._id}" ${isBooked ? "disabled" : ""}>
             <span class="text-xl">📅</span>
             <div>
               <h5 class="text-xl font-semibold tracking-tight text-gray-900">
@@ -146,8 +155,81 @@ function SlotList(doctorId) {
       });
 
       document.getElementById("slots-list").innerHTML = options.join(" ");
+
+      // Add event listeners to each available slot
+      document
+        .querySelectorAll("[data-slot-id]:not([disabled])")
+        .forEach((item) => {
+          item.addEventListener("click", (e) => {
+            e.preventDefault();
+            selectedSlotId = item.dataset.slotId;
+            showStep(3);
+            PatientList();
+          });
+        });
     })
     .catch((err) => console.log(err));
+}
+
+function PatientList() {
+  const searchInput = document.getElementById("search-input");
+
+  // Listen for input in the search field
+  searchInput.addEventListener("input", (e) => {
+    const query = e.target.value;
+
+    if (query.length > 0) {
+      fetch(`${onlineApiUrl}/patients/search?name=${query}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.patients.length === 0) {
+            document.getElementById("patients-list").innerHTML = `
+              <div class="p-2 text-center font-semibold text-gray-600 text-2xl">
+                No patients found.
+              </div>
+            `;
+            return;
+          }
+
+          const options = data.patients.map((patient) => {
+            return `
+              <div
+                class="patient-item flex justify-between p-3 hover:shadow-md hover:shadow-sky-400 cursor-pointer"
+                data-patient-id="${patient._id}">
+                  <h5 class="text-xl font-semibold tracking-tight text-gray-800 capitalize">
+                    ${patient.firstName + " " + patient.lastName}
+                  </h5>
+                  <p class="font-semibold text-gray-600">
+                    ${patient.patientID}
+                  </p>
+              </div>
+            `;
+          });
+
+          document.getElementById("patients-list").innerHTML =
+            options.join(" ");
+
+          // Add event listeners to each patient item
+          document.querySelectorAll("[data-patient-id]").forEach((item) => {
+            item.addEventListener("click", (e) => {
+              e.preventDefault();
+
+              // Remove 'selected' class from previously selected patient
+              document.querySelectorAll(".patient-item").forEach((el) => {
+                el.classList.remove("bg-sky-100", "border", "border-sky-500");
+              });
+
+              // Add 'selected' class to the clicked item
+              item.classList.add("bg-sky-100", "border", "border-sky-500");
+              selectedPatientId = item.dataset.patientId;
+            });
+          });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      document.getElementById("patients-list").innerHTML = "";
+    }
+  });
 }
 
 function showStep(step) {
@@ -173,3 +255,31 @@ prevBtn.addEventListener("click", () => {
     showStep(currentStep - 1);
   }
 });
+
+async function handleSubmit(e) {
+  e.preventDefault();
+  // Validate all required fields
+  if (!selectedSpecialityId) {
+    showErrorToast("Speciality is required.");
+    return;
+  }
+  if (!selectedDoctorId) {
+    showErrorToast("Doctor is required.");
+    return;
+  }
+  if (!selectedSlotId) {
+    showErrorToast("Slot is required.");
+    return;
+  }
+  if (!selectedPatientId) {
+    showErrorToast("Patient is required.");
+    return;
+  }
+
+  const appointmentData = {
+    specializationId: selectedSpecialityId,
+    doctorId: selectedDoctorId,
+    slotId: selectedSlotId,
+    patientId: selectedPatientId,
+  };
+}

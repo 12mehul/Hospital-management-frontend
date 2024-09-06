@@ -73,8 +73,33 @@
                   ></div>
                 </div>
 
+                <!-- Step 4: Patients -->
+                <div class="form-step hidden">
+                  <div class="py-4">
+                    <input
+                      type="text"
+                      class="w-full p-3 text-lg text-gray-700 font-normal border-2 border-cyan-100 border-b-cyan-300 focus:border-cyan-500 focus:outline-none hover:shadow-md bg-transparent rounded-md"
+                      placeholder="Enter Patient Name and ID"
+                      id="search-input"
+                    />
+                  </div>
+                  <div
+                    class="w-full flex flex-col gap-1 bg-white rounded-lg shadow-md overflow-y-auto"
+                    id="patients-list"
+                  ></div>
+                  <div class="flex justify-end mt-4">
+                    <button
+                      type="submit"
+                      class="w-40 py-3 font-medium text-white bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-400 rounded-xl inline-flex space-x-2 items-center justify-center shadow-inner"
+                      id="submit-btn"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+
                 <!-- Navigation Buttons -->
-                <div class="flex justify-between mt-4">
+                <div class="flex justify-start mt-4">
                   <button
                     type="button"
                     id="prev-btn"
