@@ -282,4 +282,29 @@ async function handleSubmit(e) {
     slotId: selectedSlotId,
     patientId: selectedPatientId,
   };
+
+  try {
+    const response = await fetch(`${onlineApiUrl}/appointments`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(appointmentData),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      showErrorToast(data.msg);
+      return;
+    }
+    if (response.ok) {
+      showSuccessToast(data.msg);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    }
+  } catch (err) {
+    showErrorToast("Failed to fetch data");
+  }
+
+  return false;
 }

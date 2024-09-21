@@ -46,6 +46,21 @@ export function validatePassword(value) {
   return "";
 }
 
+async function fetchProfileData(token) {
+  try {
+    const response = await fetch(`${onlineApiUrl}/accounts/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    const profileData = data.patientID;
+    return profileData;
+  } catch (err) {
+    return console.log("Error fetching profile data:", err);
+  }
+}
+
 export function loadComponents() {
   // Create an array of promises for loading components
   const loadSidebar = fetch("../common/sidebar.html")
@@ -57,10 +72,27 @@ export function loadComponents() {
       document.getElementById("sidebar-container").innerHTML = data;
       const sidebarContainer = document.getElementById("menu-items");
       const role = localStorage.getItem("role");
+      const token = localStorage.getItem("token");
 
-      let sidebarHTML = ``;
-      if (role === "doctor") {
-        sidebarHTML += `
+      // Fetch profile data and then use it
+      return fetchProfileData(token).then((profileData) => {
+        let sidebarHTML = ``;
+
+        if (role === "patient") {
+          const idHTML = `
+          <li>
+            <a
+              class="flex items-center p-2 text-base font-semibold rounded-lg group hover:bg-purple-100 hover:text-blue-600"
+            >
+              <span class="text-xl">🆔</span>
+              <span class="flex-1 ml-3 whitespace-nowrap">Patient: ${profileData}</span>
+            </a>
+          </li>
+        `;
+          sidebarContainer.innerHTML = idHTML + sidebarContainer.innerHTML;
+        }
+        if (role === "doctor") {
+          sidebarHTML += `
           <li>
             <a
               href="/html/patientsList.html"
@@ -71,9 +103,10 @@ export function loadComponents() {
             </a>
           </li>
         `;
-      }
+        }
 
-      sidebarContainer.innerHTML += sidebarHTML;
+        sidebarContainer.innerHTML += sidebarHTML;
+      });
     });
 
   const loadHeader = fetch("../common/header.html")
