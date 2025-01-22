@@ -72,32 +72,25 @@ function DoctorList(specialityId) {
     .then((data) => {
       const options = data.doctors.map((val) => {
         return `
-          <div
-            class="w-full flex gap-4 bg-white border rounded-lg shadow-md transform transition duration-500 hover:scale-105">
-              <img
-                class="w-24 h-full rounded border-2 border-red-500 object-cover"
-                src="../img/doctor1.png"
-                loading="lazy"
-              />
-              <div class="w-full flex flex-col gap-3">
-                <div class="pt-2">
-                  <h5 class="text-xl font-semibold tracking-tight text-gray-900 capitalize">
-                    ${val.firstName + " " + val.lastName}
-                  </h5>
-                  <p class="pt-2 text-gray-600 text-base break-all">
-                    ${val.specializationId?.title}
-                  </p>
-                </div>
-                <div class="px-2 flex justify-end">
-                  <button
-                    class="w-full sm:w-auto p-1 font-medium text-white bg-sky-500 shadow-lg shadow-sky-500/50 hover:bg-sky-400 rounded-2xl"
-                    type="button"
-                    data-doctor-id="${val._id}"
-                  >
-                    Book Appointment
-                  </button>
-                </div>
+          <div class="bg-white shadow-md rounded-lg p-4 flex flex-col transform transition duration-500 hover:scale-105 hover:shadow-sky-600">
+            <div class="flex justify-between items-center">  
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 capitalize">
+                  ${val.firstName + " " + val.lastName}
+                </h3>
+                <p class="text-gray-600 text-base mb-4 break-all">
+                  ${val.specializationId?.title}
+                </p>
               </div>
+              <img src="../img/doctor-profile.jpg" alt="Profile" class="w-12 rounded-full mb-4 shadow-md">
+            </div>
+            <div class="flex w-full">
+              <button class="px-4 py-2 rounded-md flex-1 mx-1 font-medium text-white bg-sky-500 shadow-lg shadow-sky-500/50 hover:bg-sky-400" 
+                type="button" 
+                data-doctor-id="${val._id}">
+                  Book Appointment
+              </button>
+            </div>
           </div>
         `;
       });

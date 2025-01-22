@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Appointment Lists</title>
+  </head>
+  <body>
+    <div class="flex flex-col min-h-screen">
+      <!-- Header -->
+      <div id="header-container"></div>
+      <div class="w-full h-screen flex">
+        <!-- Sidebar -->
+        <div id="sidebar-container"></div>
+        <!-- Main content of the page -->
+        <div
+          class="w-full flex-1 bg-purple-50 p-5 overflow-x-hidden overflow-y-auto"
+          id="content"
+        >
+          <h2
+            class="pb-5 flex items-center justify-center text-2xl font-semibold text-gray-700 uppercase"
+          >
+            Appointment Lists
+          </h2>
+          <div class="flex flex-col">
+            <div class="overflow-x-auto">
+              <div class="min-w-full inline-block align-middle">
+                <div class="overflow-hidden">
+                  <table class="min-w-full rounded-2xl">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th
+                          scope="col"
+                          class="p-5 text-left text-base leading-6 font-semibold text-blue-900 capitalize rounded-t-xl"
+                        >
+                          Patient Name
+                        </th>
+                        <th
+                          scope="col"
+                          class="p-5 text-left text-base leading-6 font-semibold text-blue-900 capitalize"
+                        >
+                          Doctor Name
+                        </th>
+                        <th
+                          scope="col"
+                          class="p-5 text-left text-base leading-6 font-semibold text-blue-900 capitalize"
+                        >
+                          Specialization
+                        </th>
+                        <th
+                          scope="col"
+                          class="p-5 text-left text-base leading-6 font-semibold text-blue-900 capitalize"
+                        >
+                          Slot D/T
+                        </th>
+                        <th
+                          scope="col"
+                          class="p-5 text-left text-base leading-6 font-semibold text-blue-900 capitalize"
+                        >
+                          Created AT
+                        </th>
+                        <th
+                          scope="col"
+                          class="p-5 text-left text-base leading-6 font-semibold text-blue-900 capitalize rounded-t-xl"
+                        >
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="divide-y divide-gray-300"
+                      id="appointmentList-container"
+                    ></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../js/appointmentList.js"></script>
+  </body>
+</html>
