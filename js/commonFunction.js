@@ -95,7 +95,7 @@ export function loadComponents() {
           sidebarHTML += `
           <li>
             <a
-              href="/html/patientsList.html"
+              href="/html/patientList.html"
               class="flex items-center p-2 text-base font-semibold rounded-lg group hover:bg-purple-100 hover:text-blue-600"
             >
               <span class="text-xl">🧑‍⚕️</span>
