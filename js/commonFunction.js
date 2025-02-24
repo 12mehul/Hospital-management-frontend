@@ -1,7 +1,7 @@
 import { logout } from "./storeToken.js";
 
 export const onlineApiUrl =
-  "https://hospital-management-backend-theta.vercel.app/api";
+  "https://hospital-management-backend-tawny.vercel.app/api";
 export const offlineApiUrl = "http://localhost:5000/api";
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
