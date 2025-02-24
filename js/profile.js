@@ -101,8 +101,8 @@ function populateForm(role, data) {
 async function handleSubmit(e) {
   e.preventDefault();
 
+  const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
-  const id = localStorage.getItem("id");
   const fields = roleFields[role] || [];
   const formData = {};
 
@@ -124,9 +124,10 @@ async function handleSubmit(e) {
   });
 
   try {
-    const response = await fetch(`${onlineApiUrl}/accounts/update/${id}`, {
+    const response = await fetch(`${onlineApiUrl}/accounts/update`, {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       method: "PUT",
       body: JSON.stringify(formData),

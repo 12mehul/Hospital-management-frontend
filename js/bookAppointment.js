@@ -63,11 +63,16 @@ function SpecialityList() {
 }
 
 function DoctorList(specialityId) {
+  const token = localStorage.getItem("token");
   const apiUrl = specialityId
     ? `${onlineApiUrl}/doctors?specializationId=${specialityId}`
     : `${onlineApiUrl}/doctors`;
 
-  fetch(apiUrl)
+  fetch(apiUrl, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((res) => res.json())
     .then((data) => {
       const options = data.doctors.map((val) => {
@@ -115,7 +120,12 @@ function DoctorList(specialityId) {
 }
 
 function SlotList(doctorId) {
-  fetch(`${onlineApiUrl}/slots?doctorId=${doctorId}`)
+  const token = localStorage.getItem("token");
+  fetch(`${onlineApiUrl}/slots?doctorId=${doctorId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((res) => res.json())
     .then((data) => {
       if (data.slots.length === 0) {
@@ -165,6 +175,7 @@ function SlotList(doctorId) {
 }
 
 function PatientList() {
+  const token = localStorage.getItem("token");
   const searchInput = document.getElementById("search-input");
 
   // Listen for input in the search field
@@ -172,7 +183,11 @@ function PatientList() {
     const query = e.target.value;
 
     if (query.length > 0) {
-      fetch(`${onlineApiUrl}/patients/search?name=${query}`)
+      fetch(`${onlineApiUrl}/patients/search?name=${query}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.patients.length === 0) {
@@ -251,6 +266,7 @@ prevBtn.addEventListener("click", () => {
 
 async function handleSubmit(e) {
   e.preventDefault();
+  const token = localStorage.getItem("token");
   // Validate all required fields
   if (!selectedSpecialityId) {
     showErrorToast("Speciality is required.");
@@ -280,6 +296,7 @@ async function handleSubmit(e) {
     const response = await fetch(`${onlineApiUrl}/appointments`, {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       method: "POST",
       body: JSON.stringify(appointmentData),

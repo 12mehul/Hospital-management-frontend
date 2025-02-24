@@ -12,9 +12,14 @@ checkAuth()
 function PatientList() {
   const role = localStorage.getItem("role");
   const id = localStorage.getItem("id");
+  const token = localStorage.getItem("token");
 
   if (role === "doctor") {
-    fetch(`${onlineApiUrl}/patients?doctorId=${id}`)
+    fetch(`${onlineApiUrl}/patients?doctorId=${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         const options = data.patients.map((val) => {

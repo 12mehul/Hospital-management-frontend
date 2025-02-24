@@ -13,6 +13,7 @@ checkAuth()
 function AppointmentList() {
   const role = localStorage.getItem("role");
   const id = localStorage.getItem("id");
+  const token = localStorage.getItem("token");
 
   // Construct query based on role
   const query =
@@ -22,7 +23,11 @@ function AppointmentList() {
       ? `doctorId=${id}`
       : null;
 
-  fetch(`${onlineApiUrl}/appointments?${query}`)
+  fetch(`${onlineApiUrl}/appointments?${query}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((res) => res.json())
     .then((data) => {
       if (data.appointments && data.appointments.length > 0) {
