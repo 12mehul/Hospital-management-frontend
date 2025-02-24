@@ -12,7 +12,7 @@ export function showSuccessToast(message) {
 // Function to show error toast
 export function showErrorToast(message) {
   Toastify({
-    text: message,
+    text: message || "Internal Server Down",
     duration: 3000,
     gravity: "top",
     position: "right",
